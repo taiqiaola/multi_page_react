@@ -4,6 +4,7 @@ const webpackMerge = require("webpack-merge"); // 合并webpack配置文件
 const autoprefixer = require("autoprefixer"); // 给css自动加浏览器兼容性前缀的插件
 const portfinder = require("portfinder"); // 这个帮助我们寻找可用的端口，如果默认端口被占用了的话
 const fs = require("fs"); // 处理文件用的
+const os = require("os"); // 这个nodejs模块，会帮助我们获取本机ip
 
 const modulePageRegx = /^\/(bim0|workBench).html$/;
 
@@ -18,6 +19,20 @@ portfinder.getPort((err, port) => {
   ports = JSON.stringify(ports, null, 4);
   fs.writeFileSync("./port.json", ports); // 然后再写入prot.json
 });
+
+// 获取本机ip
+function getIPAdress() {
+  const interfaces = os.networkInterfaces();
+  for (let devName in interfaces) {
+    const iface = interfaces[devName];
+    for (let i = 0; i < iface.length; i++) {
+      const alias = iface[i];
+      if (alias.family === "IPv4" && alias.address !== "127.0.0.1" && !alias.internal) {
+        return alias.address;
+      }
+    }
+  }
+}
 
 const webpackConfigDev = {
   output: {
@@ -98,6 +113,7 @@ const webpackConfigDev = {
     overlay: true, // 出现错误之后会在页面中出现遮罩层提示
     compress: true,
     open: true, // 运行之后自动打开本地浏览器
+    // 服务器代理配置项
     proxy: {
       "/apiX/*": {
         target: "https://144.7.127.8:8888",

@@ -15,20 +15,6 @@ const jsxHappy = new HappyPack({
   loaders: ["babel-loader"]
 });
 
-// 获取本机ip
-function getIPAdress() {
-  const interfaces = os.networkInterfaces();
-  for (let devName in interfaces) {
-    const iface = interfaces[devName];
-    for (let i = 0; i < iface.length; i++) {
-      const alias = iface[i];
-      if (alias.family === "IPv4" && alias.address !== "127.0.0.1" && !alias.internal) {
-        return alias.address;
-      }
-    }
-  }
-}
-
 // 动态添加入口
 function getEntry() {
   const entry = {};
