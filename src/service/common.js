@@ -1,5 +1,5 @@
-import { Fetch } from "common/js/request.js";
-import ServiceAddress from "common/js/serviceAddress.js";
+import { Fetch } from "@/common/js/request.js";
+import ServiceAddress from "@/common/js/serviceAddress.js";
 
 const { host, port } = ServiceAddress["/apiX"];
 

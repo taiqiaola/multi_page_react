@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { routerConfig } from "./route";
-import BasicLayout from "../../layouts/index.jsx";
+import BasicLayout from "../../layouts";
 
 class App extends Component {
   render() {

@@ -4,7 +4,7 @@ import { browserHistory, hashHistory } from "react-router";
 import { Route, Redirect, Switch, Router } from "react-router-dom";
 import { ConnectedRouter } from "react-router-redux";
 import { createBrowserHistory, createHashHistory } from "history";
-import "common/css/global.less";
+import "@/common/css/global.less";
 import "./index.less";
 
 const history = createHashHistory();

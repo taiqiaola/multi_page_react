@@ -1,8 +1,13 @@
 import React from "react";
 import Loadable from "react-loadable";
+import { Spin } from "antd";
 
 const loadingComponent = () => {
-  return <div>loading</div>;
+  return (
+    <div>
+      <Spin />
+    </div>
+  );
 };
 
 export default function WithLoadable(comp) {

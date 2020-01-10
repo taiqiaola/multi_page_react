@@ -8,7 +8,7 @@ import rootReducer from "./reducer";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import "moment/locale/zh-cn";
 import { ConfigProvider } from "antd";
-import App from "./App.jsx";
+import App from "./App";
 
 const historyMid = routerMiddleware(createHashHistory());
 

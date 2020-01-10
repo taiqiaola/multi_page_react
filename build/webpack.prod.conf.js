@@ -3,7 +3,6 @@ const webpack = require("webpack"); // 引入webpack
 const webpackMerge = require("webpack-merge"); // 合并webpack配置文件
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // 分离css，webpack4推荐的分离css的插件
 const autoprefixer = require("autoprefixer"); // 给css自动加浏览器兼容性前缀的插件
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); // 压缩js
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"); // 压缩css
 const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // 清除目录
 
@@ -15,7 +14,7 @@ const webpackConfigProd = {
     filename: "js/[name]-[hash].js"
   },
   mode: "production",
-  devtool: "source-map",
+  devtool: "none",
   module: {
     rules: [
       {
@@ -66,16 +65,6 @@ const webpackConfigProd = {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: "css/[name].css"
-    }),
-    // 压缩js,去除console等信息webpack4.x之后去除了webpack.optimize.UglifyJsPlugin
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          warnings: false,
-          drop_debugger: false,
-          drop_console: true
-        }
-      }
     }),
     // 压缩css
     new OptimizeCSSAssetsPlugin({

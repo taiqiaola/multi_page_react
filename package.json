@@ -4,14 +4,14 @@
   "description": "",
   "scripts": {
     "start_1": "webpack --mode development --config build/webpack.dev.conf.js",
-    "dev": "webpack --config build/webpack.dev.conf.js && webpack-dev-server --config build/webpack.dev.conf.js",
     "start": "webpack-dev-server --config build/webpack.dev.conf.js",
-    "dev_1": "webpack --mode development",
-    "prod": "webpack --mode production --config build/webpack.prod.conf.js"
+    "dev": "webpack --config build/webpack.dev.conf.js && webpack-dev-server --config build/webpack.dev.conf.js",
+    "prod": "webpack --config build/webpack.prod.conf.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@antv/data-set": "^0.10.2",
     "@antv/g2": "^3.5.11",
     "@supermap/iclient-leaflet": "^10.0.0",
     "antd": "^3.26.0",
@@ -52,7 +52,6 @@
     "redux": "^4.0.5",
     "style-loader": "^1.0.1",
     "transfer-webpack-plugin": "^0.1.4",
-    "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",

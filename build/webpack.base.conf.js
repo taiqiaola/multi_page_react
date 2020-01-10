@@ -4,8 +4,6 @@ const glob = require("glob"); // glob，这个是一个全局的模块，动态�
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // 这个是通过html模板生成html页面的插件，动态配置多页面用得着
 const TransferWebpackPlugin = require("transfer-webpack-plugin"); // 原封不动的把assets中的文件复制到dist文件夹中
 const os = require("os"); // 这个nodejs模块，会帮助我们获取本机ip
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"); // 压缩css
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); // 压缩js
 const HappyPack = require("happypack");
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
@@ -56,17 +54,10 @@ const getHtmlConfig = (name, chunks) => {
 
 module.exports = {
   entry: getEntry(),
-  // output: {
-  //   path: path.resolve(__dirname, "./dist"),
-  //   filename: "js/[name]-bundle.js"
-  // },
   resolve: {
     extensions: ["*", ".js", ".json", ".jsx"],
     alias: {
-      common: path.resolve(__dirname, "../src/common"),
-      service: path.resolve(__dirname, "../src/service"),
-      bim0: path.resolve(__dirname, "../src/bim0"),
-      workBench: path.resolve(__dirname, "../src/workBench")
+      "@": path.resolve(__dirname, "../src")
     }
   },
   module: {
@@ -95,52 +86,43 @@ module.exports = {
     hints: false
   },
   optimization: {
-    // minimizer: [
-    //   new OptimizeCSSAssetsPlugin({
-    //     assetNameRegExp: /\.less\.css$/g
-    //   }),
-    //   new UglifyJsPlugin({
-    //     test: /\.(js|jsx)(\?.*)?$/i, //测试匹配文件,
-    //     exclude: /node_modules/ //不包含哪些文件
-    //   })
-    // ],
     splitChunks: {
       cacheGroups: {
         // 抽离第三方插件
         common: {
-          chunks: "initial",
+          chunks: "all",
           name: "common", // 打包后的文件名，任意命名
-          minSize: 0,
-          minChunks: 2 // 重复2次才能打包到此模块
+          minSize: 0
+          // minChunks: 2 // 重复2次才能打包到此模块
         },
         vendor: {
           priority: 1, // 优先级配置，优先匹配优先级更高的规则，不设置的规则优先级默认为0
           test: /node_modules/, // 匹配对应文件,// 指定是node_modules下的第三方包
-          chunks: "initial",
+          chunks: "all",
           name: "vendor",
-          minSize: 0,
-          minChunks: 1
+          minSize: 0
+          // minChunks: 1
         }
       }
     }
   },
   plugins: [
-    jsxHappy,
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      jquery: "jquery",
-      "window.jQuery": "jquery"
-    }),
-    new TransferWebpackPlugin(
-      [
-        {
-          from: path.resolve(__dirname, "../src/assets"),
-          to: "assets"
-        }
-      ],
-      path.resolve(__dirname, "src")
-    )
+    jsxHappy
+    // new webpack.ProvidePlugin({
+    //   $: "jquery",
+    //   jQuery: "jquery",
+    //   jquery: "jquery",
+    //   "window.jQuery": "jquery"
+    // })
+    // new TransferWebpackPlugin(
+    //   [
+    //     {
+    //       from: path.resolve(__dirname, "../src/assets"),
+    //       to: "assets"
+    //     }
+    //   ],
+    //   path.resolve(__dirname, "src")
+    // )
   ]
 };
 

@@ -91,7 +91,7 @@ const webpackConfigDev = {
     // new webpack.NamedModulesPlugin()
   ],
   devServer: {
-    contentBase: path.resolve(__dirname, "dist"), // 最好设置成绝对路径
+    contentBase: path.resolve(__dirname, "../src"), // 最好设置成绝对路径
     historyApiFallback: {
       rewrites: [
         { from: /^\/$/, to: "/workBench.html" },

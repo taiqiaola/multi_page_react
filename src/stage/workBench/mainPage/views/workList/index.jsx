@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import qs from "query-string";
 import { Button, message } from "antd";
 import { Header } from "../components";
-import { getTodoWoList, getItemConfTree } from "service/common.js";
+import { getTodoWoList, getItemConfTree } from "@/service/common.js";
 import "./index.less";
 
 class WorkList extends Component {
