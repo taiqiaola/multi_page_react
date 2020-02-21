@@ -14,7 +14,7 @@ const webpackConfigProd = {
     filename: "js/[name]-[hash].js"
   },
   mode: "production",
-  devtool: "none",
+  devtool: "source-map",
   module: {
     rules: [
       {

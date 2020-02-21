@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin"); // 这个是通过html
 const TransferWebpackPlugin = require("transfer-webpack-plugin"); // 原封不动的把assets中的文件复制到dist文件夹中
 const os = require("os"); // 这个nodejs模块，会帮助我们获取本机ip
 const HappyPack = require("happypack");
+const AntdDayjsWebpackPlugin = require("antd-dayjs-webpack-plugin"); // 使用antd来减小打包大小
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const jsxHappy = new HappyPack({
@@ -107,7 +108,8 @@ module.exports = {
     }
   },
   plugins: [
-    jsxHappy
+    jsxHappy,
+    new AntdDayjsWebpackPlugin()
     // new webpack.ProvidePlugin({
     //   $: "jquery",
     //   jQuery: "jquery",
