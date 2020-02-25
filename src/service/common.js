@@ -18,9 +18,9 @@ export const getTodoWoList = param => {
   });
 };
 
-// bim2-意见征询-初审-事项树
-export const getItemConfTree = param => {
-  const arrParam = ["com.digital.product.biz.projectitem.intf.ProjectItemIntf", "getItemConfTree"];
+// 获取用户信息
+export const getLoginUser = () => {
+  const arrParam = ["com.ztesoft.res.frame.user.manager.inf.StaffStateServiceIntf", "getLoginUser"];
   return Fetch(BaseUrlX + "/digital/common/service/callServerFunctionForReact.spr", {
     method: "POST",
     body: {

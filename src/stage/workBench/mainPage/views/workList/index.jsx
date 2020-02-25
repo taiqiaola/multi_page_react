@@ -4,18 +4,31 @@ import { connect } from "react-redux";
 import qs from "query-string";
 import { Button, message } from "antd";
 import { Header } from "../components";
-import { getTodoWoList, getItemConfTree } from "@/service/common.js";
+import { getTodoWoList, getLoginUser } from "@/service/common.js";
 import "./index.less";
 
 class WorkList extends Component {
-  UNSAFE_componentWillMount() {
+  state = {
+    data: [],
+    currentName: ""
+  };
+
+  componentDidMount() {
     const param = {
       page: 1,
       pageSize: 10
     };
     getTodoWoList(param).then(res => {
-      console.log(res);
-      message.info("123");
+      message.info(res.resultStat);
+      this.setState({
+        data: res.value.list
+      });
+    });
+
+    getLoginUser().then(res => {
+      this.setState({
+        currentName: res.data.loginName
+      });
     });
   }
 
@@ -29,12 +42,18 @@ class WorkList extends Component {
 
   render() {
     // const { abc } = qs.parse(this.props.history.location.search);
-    const ceshiIMG = "/assets/ceshi.jpg";
+    const ceshiIMG = "/assets/favicon.png";
+
+    const { data, currentName } = this.state;
 
     return (
       <div className="workListBox">
         <Header>
+          <p>你好，{currentName}！</p>
           <img src={ceshiIMG} style={{ paddingRight: 8 }} />
+          {data.map(item => (
+            <p key={item.itemNumber}>{item.itemNumber}</p>
+          ))}
           <Button type="primary" onClick={this.onBtnClick}>
             跳到bim0.html页面
           </Button>
