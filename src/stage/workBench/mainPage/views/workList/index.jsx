@@ -42,7 +42,8 @@ class WorkList extends Component {
 
   render() {
     // const { abc } = qs.parse(this.props.history.location.search);
-    const ceshiIMG = "/assets/favicon.png";
+    const ceshiIMG_1 = "/assets/favicon.png";
+    const ceshiIMG_2 = "/assets/image/backimg/ceshi.png";
 
     const { data, currentName } = this.state;
 
@@ -50,7 +51,8 @@ class WorkList extends Component {
       <div className="workListBox">
         <Header>
           <p>你好，{currentName}！</p>
-          <img src={ceshiIMG} style={{ paddingRight: 8 }} />
+          <img src={ceshiIMG_1} style={{ paddingRight: 8 }} />
+          <img src={ceshiIMG_2} style={{ paddingRight: 8 }} />
           {data.map(item => (
             <p key={item.itemNumber}>{item.itemNumber}</p>
           ))}

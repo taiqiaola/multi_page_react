@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { routerConfig } from "./route";
 import BasicLayout from "../../layouts";
+import { hot } from "react-hot-loader/root";
 
 class App extends Component {
   render() {
@@ -13,4 +14,6 @@ function mapStateToProps(state) {
   return {};
 }
 
-export default connect(mapStateToProps, null)(App);
+const HOCApp = module.hot ? hot(App) : App;
+
+export default connect(mapStateToProps, null)(HOCApp);

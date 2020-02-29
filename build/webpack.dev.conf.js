@@ -37,12 +37,25 @@ function getIPAdress() {
 const webpackConfigDev = {
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "js/[name]-bundle.js"
+    filename: "js/[name]-bundle.js",
+    publicPath: "/"
   },
   mode: "development",
-  devtool: "cheap-module-source-map",
+  devtool: "cheap-module-eval-source-map",
   module: {
     rules: [
+      {
+        test: /\.(js|jsx)$/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            cacheDirectory: true,
+            plugins: ["react-hot-loader/babel"]
+          }
+        },
+        exclude: /(node_modules)/,
+        include: /src/
+      },
       {
         test: /\.css$/,
         // css不分离写法
@@ -89,40 +102,41 @@ const webpackConfigDev = {
   plugins: [
     new webpack.HotModuleReplacementPlugin()
     // new webpack.NamedModulesPlugin()
-  ],
-  devServer: {
-    contentBase: path.resolve(__dirname, "../src"), // 最好设置成绝对路径
-    historyApiFallback: {
-      rewrites: [
-        { from: /^\/$/, to: "/workBench.html" },
-        {
-          from: modulePageRegx,
-          to(context) {
-            const name = context.parsedUrl.pathname.match(modulePageRegx)[1];
-            renturn`/${name}.html`;
-          }
-        }
-      ]
-    }, // true默认打开index.html，false会出现一个目录，亦可配置
-    hot: true,
-    inline: true,
-    stats: "errors-only",
-    // host: getIPAdress(),
-    https: true,
-    port: ports.data.port,
-    overlay: true, // 出现错误之后会在页面中出现遮罩层提示
-    compress: true,
-    open: true, // 运行之后自动打开本地浏览器
-    // 服务器代理配置项
-    proxy: {
-      "/apiX/*": {
-        target: "https://144.7.127.8:8888",
-        secure: false,
-        pathRewrite: { "^/apiX": "" }
-        // changeOrigin: true
-      }
-    }
-  }
+  ]
+  // devServer: {
+  //   contentBase: path.join(__dirname, "../"), // 最好设置成绝对路径
+  //   publicPath: "/",
+  //   historyApiFallback: {
+  //     rewrites: [
+  //       { from: /^\/$/, to: "/workBench.html" },
+  //       {
+  //         from: modulePageRegx,
+  //         to: context => {
+  //           const name = context.parsedUrl.pathname.match(modulePageRegx)[1];
+  //           renturn`/${name}.html`;
+  //         }
+  //       }
+  //     ]
+  //   }, // true默认打开index.html，false会出现一个目录，亦可配置
+  //   hot: true, // 启用模块热替换特性
+  //   inline: true,
+  //   stats: "errors-only",
+  //   // host: getIPAdress(),
+  //   https: true,
+  //   port: ports.data.port,
+  //   overlay: true, // 出现错误之后会在页面中出现遮罩层提示
+  //   compress: true, // 一切服务都启用gzip 压缩
+  //   // open: true, // 运行之后自动打开本地浏览器
+  //   // 服务器代理配置项
+  //   proxy: {
+  //     "/apiX/*": {
+  //       target: "https://144.7.127.8:8888",
+  //       secure: false,
+  //       pathRewrite: { "^/apiX": "" }
+  //       // changeOrigin: true
+  //     }
+  //   }
+  // }
 };
 
 module.exports = webpackMerge(webpackConfigBase, webpackConfigDev);
