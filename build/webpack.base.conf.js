@@ -82,7 +82,7 @@ module.exports = {
         },
         vendor: {
           priority: 1, // 优先级配置，优先匹配优先级更高的规则，不设置的规则优先级默认为0
-          test: /node_modules/, // 匹配对应文件,// 指定是node_modules下的第三方包
+          test: /react/, // 匹配对应文件,// 指定是src下的第三方包
           chunks: "all",
           name: "vendor",
           minSize: 0

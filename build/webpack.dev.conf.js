@@ -38,7 +38,7 @@ const webpackConfigDev = {
   output: {
     path: path.resolve(__dirname, "../dist"),
     filename: "js/[name]-bundle.js",
-    publicPath: "/"
+    publicPath: "./"
   },
   mode: "development",
   devtool: "cheap-module-eval-source-map",
